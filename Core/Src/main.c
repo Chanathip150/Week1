@@ -90,7 +90,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   GPIO_PinState SwitchState[2] ;  //Now,last
-  uint16_t LED1_Period = 500 ;   // 1kH
+  uint16_t LED1_HalfPeriod = 500 ;   // 1kH
   uint32_t TimeStamp = 0 ;
   uint32_t ButtonTimeStamp = 0 ;
   /* USER CODE END 2 */
@@ -110,13 +110,13 @@ int main(void)
 		  if(SwitchState[1] == GPIO_PIN_SET && SwitchState[0] == GPIO_PIN_RESET )
 		  {
 			  //Change Half Period of LED 1
-			  if(LED1_Period == 500)
+			  if(LED1_HalfPeriod == 500)
 			  {
-				  LED1_Period = 250 ;
+				  LED1_HalfPeriod = 250 ;
 			  }
 			  else
 			  {
-				  LED1_Period = 500 ;
+				  LED1_HalfPeriod = 500 ;
 			  }
 		  }
 		  SwitchState[1] = SwitchState[0] ;
@@ -124,7 +124,7 @@ int main(void)
 		 // HAL_GetTick() ; //mS
 		  // Run LED
   	  }
-	  if(HAL_GetTick() - TimeStamp >= LED1_Period)
+	  if(HAL_GetTick() - TimeStamp >= LED1_HalfPeriod)
 	  {
 		TimeStamp = HAL_GetTick() ;
 		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) == GPIO_PIN_SET )
